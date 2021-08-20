@@ -1,17 +1,26 @@
-name: Linter Workflow
-on: [push]
+name: Linter
+
+# Run this workflow every time a new commit pushed to your repository
+on: push
+
 jobs:
-  lint:
+  # Set the job key. The key is displayed as the job name
+  # when a job name is not provided
+  make-lint:
+    # Name the Job
+    name: Runs linter
+    # Set the type of machine to run on
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
         uses: actions/checkout@v2
-      - run: make install
-      - run: make lint
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      
+      # installing dependencies
+      - name: Install Dependencies
+        run: make install
+
+      # Runs the Linter action
+      - name: Run Linter
+        run: make lint 

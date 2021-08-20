@@ -1,0 +1,13 @@
+name: Linter Workflow
+on: [push]
+jobs:
+	Linter-Action:
+		runs-on: ubuntu-latest
+		steps:
+			- name: Check out repository code
+			uses: actions/checkout@v2
+			- run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+			- name: Install Dependencies
+			run: make install
+			- name: Run Linter
+			run: make lint
